@@ -37,6 +37,9 @@ public class AensDomainClaimer {
   @Scheduled(fixedDelay = 3600000)
   public void scheduleFixedDelayTask() throws InterruptedException {
     for (NameEntry nameEntry : domainConfig.getWatchlist()) {
+      // we currently have a bug here as we don't ignore case when comparing the domains
+      // see https://github.com/kryptokrauts/aepp-sdk-java/issues/85
+      // TODO update sdk version after bugfix
       boolean active = aeternityService.aeternal.blockingIsAuctionActive(nameEntry.getDomain());
       Optional<ActiveAuctionResult> activeAuctionResult =
           this.getActiveAuctionResult(nameEntry.getDomain());
@@ -174,7 +177,7 @@ public class AensDomainClaimer {
     ActiveAuctionsResult activeAuctionsResult =
         aeternityService.aeternal.blockingGetNameAuctionsActive();
     return activeAuctionsResult.getActiveAuctionResults().stream()
-        .filter(auction -> auction.getName().equals(domain))
+        .filter(auction -> auction.getName().equalsIgnoreCase(domain))
         .findFirst();
   }
 

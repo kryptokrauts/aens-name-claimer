@@ -10,15 +10,15 @@ import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @Data
-@ConfigurationProperties(prefix = "domain")
-public class DomainConfig {
+@ConfigurationProperties(prefix = "names")
+public class NameConfig {
 
   private List<NameEntry> watchlist = new ArrayList<>();
 
   @Data
   @ToString
   public static class NameEntry {
-    private String domain;
+    private String name;
     private BigInteger maxBid = UnitConversionUtil.toAettos("25", Unit.AE).toBigInteger();
     private boolean update = false;
   }

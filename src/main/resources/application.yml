@@ -11,13 +11,13 @@
 wallet:
   path: /home/user/wallet.json
 
-domain:
+names:
   watchlist:
-    - domain: aeternity.chain
-      maxBid: 30000000000000000000  # domain will be claimed until maxBid is reached, default: 25000000000000000000
+    - name: aeternity.chain
+      maxBid: 30000000000000000000  # name will be claimed until maxBid is reached, default: 25000000000000000000
       update: true                  # will extend the nameTtl to max value and set a pointer to the account, default: false
-    - domain: kryptokrauts.chain
+    - name: kryptokrauts.chain
 
 # output to a file
 logging:
-  file: /var/log/aens-domain-claimer.log
+  file: /var/log/aens-name-claimer.log

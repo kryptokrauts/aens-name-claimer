@@ -114,4 +114,6 @@ gradle-app.setting
 .project
 bin/
 
+# local
+/logs/
 application-*.yml

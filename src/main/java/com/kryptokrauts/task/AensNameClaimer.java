@@ -74,6 +74,7 @@ public class AensNameClaimer {
           ActiveNameResult activeNameResult =
               aeternityService.aeternal.blockingSearchName(nameEntry.getName())
                   .getActiveNameResults().stream()
+                  .filter(it -> it.getName().equalsIgnoreCase(nameEntry.getName()))
                   .findFirst()
                   .get();
           /** only perform update if we are the owner and if the name should be updated */

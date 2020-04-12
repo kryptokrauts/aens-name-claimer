@@ -16,7 +16,6 @@ import com.kryptokrauts.aeternity.sdk.util.CryptoUtils;
 import com.kryptokrauts.config.NameConfig;
 import com.kryptokrauts.config.NameConfig.NameEntry;
 import java.math.BigInteger;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -82,9 +81,7 @@ public class AensNameClaimer {
                   .getOwner()
                   .equals(aeternityServiceConfiguration.getBaseKeyPair().getPublicKey())
               && nameEntry.isUpdate()) {
-            performUpdate(
-                nameIdResult.getId(),
-                Arrays.asList(aeternityServiceConfiguration.getBaseKeyPair().getPublicKey()));
+            performUpdate(nameIdResult.getId(), nameConfig.getPointers());
             nameIdResult = aeternityService.names.blockingGetNameId(nameEntry.getName());
             log.info("{}: updated: {}", nameEntry.getName(), nameIdResult);
           } else {
@@ -117,7 +114,6 @@ public class AensNameClaimer {
     PostTransactionResult postTransactionResult =
         aeternityService.transactions.blockingPostTransaction(nameClaimTransactionModel);
     log.info("NameClaimTx-hash: {}", postTransactionResult.getTxHash());
-    waitForTxMined(postTransactionResult.getTxHash());
     log.info("successfully claimed: {}", name);
   }
 
@@ -142,7 +138,6 @@ public class AensNameClaimer {
     PostTransactionResult postTransactionResult =
         aeternityService.transactions.blockingPostTransaction(nameUpdateTransactionModel);
     log.info("NameUpdateTx-hash: {}", postTransactionResult.getTxHash());
-    waitForTxMined(postTransactionResult.getTxHash());
   }
 
   /** performs a preclaim and claim for the respective name */
@@ -161,7 +156,6 @@ public class AensNameClaimer {
     PostTransactionResult postTransactionResult =
         aeternityService.transactions.blockingPostTransaction(namePreclaimTransactionModel);
     log.info("NamePreclaimTx-hash: {}", postTransactionResult.getTxHash());
-    waitForTxMined(postTransactionResult.getTxHash());
     NameClaimTransactionModel nameClaimTransactionModel =
         NameClaimTransactionModel.builder()
             .name(name)
@@ -174,7 +168,6 @@ public class AensNameClaimer {
     postTransactionResult =
         aeternityService.transactions.blockingPostTransaction(nameClaimTransactionModel);
     log.info("NameClaimTx-hash: {}", postTransactionResult.getTxHash());
-    waitForTxMined(postTransactionResult.getTxHash());
     log.info("successfully claimed: {}", name);
   }
 
@@ -192,21 +185,5 @@ public class AensNameClaimer {
       return BigInteger.ONE;
     }
     return accountResult.getNonce().add(BigInteger.ONE);
-  }
-
-  /**
-   * checks every 5 seconds whether the transaction is mined or not
-   *
-   * @param txHash
-   * @throws InterruptedException
-   */
-  private void waitForTxMined(final String txHash) throws InterruptedException {
-    int blockHeight = -1;
-    while (blockHeight == -1) {
-      log.info("waiting for tx to be mined ...");
-      blockHeight =
-          aeternityService.info.blockingGetTransactionByHash(txHash).getBlockHeight().intValue();
-      Thread.sleep(5000);
-    }
   }
 }

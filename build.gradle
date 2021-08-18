@@ -4,18 +4,19 @@ plugins {
 }
 
 group 'com.kryptokrauts'
-version '1.0-SNAPSHOT'
+version '1.0.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 15
 
 repositories {
     jcenter()
     mavenCentral()
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
 }
 
 dependencyManagement {
     imports {
-        mavenBom "org.springframework.boot:spring-boot-dependencies:2.1.6.RELEASE"
+        mavenBom "org.springframework.boot:spring-boot-dependencies:2.5.3"
     }
 }
 
@@ -25,6 +26,6 @@ dependencies {
 
     compile "commons-io:commons-io:2.6"
     compile "org.springframework.boot:spring-boot-starter-web"
-    compile "com.kryptokrauts:aepp-sdk-java:2.2.1"
+    compile "com.kryptokrauts:aepp-sdk-java:3.0.0-SNAPSHOT"
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

@@ -4,7 +4,9 @@ import com.kryptokrauts.aeternity.sdk.service.unit.UnitConversionService;
 import com.kryptokrauts.aeternity.sdk.service.unit.impl.DefaultUnitConversionServiceImpl;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import lombok.Data;
 import lombok.ToString;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -16,7 +18,7 @@ public class NameConfig {
   private static UnitConversionService unitConversionService =
       new DefaultUnitConversionServiceImpl();
 
-  private List<String> pointers = new ArrayList<>();
+  private Map<String, String> pointers = new HashMap<>();
   private List<NameEntry> watchlist = new ArrayList<>();
 
   @Data

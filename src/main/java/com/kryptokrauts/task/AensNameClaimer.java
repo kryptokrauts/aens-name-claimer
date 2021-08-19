@@ -4,7 +4,7 @@ import com.kryptokrauts.aeternity.sdk.constants.AENS;
 import com.kryptokrauts.aeternity.sdk.service.account.domain.AccountResult;
 import com.kryptokrauts.aeternity.sdk.service.aeternity.AeternityServiceConfiguration;
 import com.kryptokrauts.aeternity.sdk.service.aeternity.impl.AeternityService;
-import com.kryptokrauts.aeternity.sdk.service.indaex.domain.NameAuctionResult;
+import com.kryptokrauts.aeternity.sdk.service.mdw.domain.NameAuctionResult;
 import com.kryptokrauts.aeternity.sdk.service.name.domain.NameEntryResult;
 import com.kryptokrauts.aeternity.sdk.service.transaction.domain.PostTransactionResult;
 import com.kryptokrauts.aeternity.sdk.service.transaction.type.model.NameClaimTransactionModel;
@@ -35,7 +35,7 @@ public class AensNameClaimer {
   public void scheduleFixedDelayTask() throws InterruptedException {
     for (NameEntry nameEntry : nameConfig.getWatchlist()) {
       NameAuctionResult nameAuctionResult =
-          aeternityService.indaex.blockingGetNameAuction(nameEntry.getName());
+          aeternityService.mdw.blockingGetNameAuction(nameEntry.getName());
       if (nameAuctionResult.getRootErrorMessage() == null) {
         log.info("{}: found active auction", nameEntry.getName());
         if (aeternityServiceConfiguration

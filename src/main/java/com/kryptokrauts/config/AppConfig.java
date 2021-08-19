@@ -46,7 +46,7 @@ public class AppConfig {
     return AeternityServiceConfiguration.configure()
         .baseUrl(nodeUrl)
         .compilerBaseUrl(compilerBaseUrl)
-        .indaexBaseUrl(mdwBaseUrl)
+        .mdwBaseUrl(mdwBaseUrl)
         .network(network)
         .targetVM(targetVM)
         .keyPair(keyPair())

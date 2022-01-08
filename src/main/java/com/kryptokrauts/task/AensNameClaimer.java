@@ -29,8 +29,6 @@ public class AensNameClaimer {
 
   @Autowired private NameConfig nameConfig;
 
-  private static final BigInteger MAX_TTL = BigInteger.valueOf(180000);
-
   @Scheduled(fixedDelay = 3600000)
   public void scheduleFixedDelayTask() throws InterruptedException {
     for (NameEntry nameEntry : nameConfig.getWatchlist()) {
@@ -98,7 +96,6 @@ public class AensNameClaimer {
             .accountId(aeternityServiceConfiguration.getKeyPair().getAddress())
             .nonce(getNextNonce())
             .nameFee(fee)
-            .ttl(BigInteger.ZERO)
             .build();
     log.info("NameClaimTx-model: {}", nameClaimTransactionModel);
     PostTransactionResult postTransactionResult =
@@ -119,9 +116,6 @@ public class AensNameClaimer {
             .accountId(aeternityServiceConfiguration.getKeyPair().getAddress())
             .nameId(nameId)
             .nonce(getNextNonce())
-            .ttl(BigInteger.ZERO)
-            .clientTtl(BigInteger.ZERO)
-            .nameTtl(MAX_TTL)
             .pointers(pointers)
             .build();
     log.info("NameUpdateTx-model: {}", nameUpdateTransactionModel);

@@ -1,7 +1,6 @@
 package com.kryptokrauts.config;
 
 import com.kryptokrauts.aeternity.sdk.constants.Network;
-import com.kryptokrauts.aeternity.sdk.constants.VirtualMachine;
 import com.kryptokrauts.aeternity.sdk.domain.secret.KeyPair;
 import com.kryptokrauts.aeternity.sdk.exception.AException;
 import com.kryptokrauts.aeternity.sdk.service.aeternity.AeternityServiceConfiguration;
@@ -35,9 +34,6 @@ public class AppConfig {
   @Value("${network:TESTNET}")
   Network network;
 
-  @Value("${vm:FATE}")
-  VirtualMachine targetVM;
-
   @Value("${wallet.path}")
   String walletPath;
 
@@ -48,7 +44,6 @@ public class AppConfig {
         .compilerBaseUrl(compilerBaseUrl)
         .mdwBaseUrl(mdwBaseUrl)
         .network(network)
-        .targetVM(targetVM)
         .keyPair(keyPair())
         .compile();
   }

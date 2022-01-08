@@ -6,7 +6,6 @@
 #mdw:
 #  url: https://mainnet.aeternity.io/mdw
 #network: MAINNET
-#vm: FATE
 
 wallet:
   path: /home/user/wallet.json

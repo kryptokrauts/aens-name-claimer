@@ -1,22 +1,21 @@
 # remove comments to use MAINNET (default: testnet)
 #node:
-#  url: https://sdk-mainnet.aepps.com
+#  url: https://mainnet.aeternity.io
 #compiler:
-#  url: https://compiler.aepps.com
-#middleware:
-#  url: https://aeternal.io
+#  url: https://compiler.aeternity.io
+#mdw:
+#  url: https://mainnet.aeternity.io/mdw
 #network: MAINNET
-#vm: FATE
 
 wallet:
   path: /home/user/wallet.json
 
 names:
-  #  pointers: # note: the pointers will be used for all names in the watchlist if update is set true
-  #    - ak_...
-  #    - ct_...
-  #    - ok_...
-  #    - ch_...
+  #    pointers: # note: the pointers will be used for all names in the watchlist if update is set true
+  #      account_pubkey: ak_...
+  #      channel: ch_...
+  #      contract_pubkey: ct_...
+  #      oracle_pubkey: ok_...
   watchlist:
     - name: aeternity.chain
       maxBid: 30000000000000000000  # name will be claimed until maxBid is reached, default: 25000000000000000000
